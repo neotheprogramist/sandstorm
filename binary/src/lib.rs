@@ -189,8 +189,7 @@ impl<F: Field> Memory<F> {
         let mut reader = BufReader::new(r);
         let mut partial_memory = Vec::new();
         let mut max_address = 0;
-        let mut word_bytes = Vec::new();
-        word_bytes.resize(field_bytes::<F>(), 0);
+        let mut word_bytes = vec![0; field_bytes::<F>()];
         while reader.has_data_left().unwrap() {
             // TODO: ensure always deserializes u64 and both are always little-endian
             let address = bincode::deserialize_from(&mut reader).unwrap();
